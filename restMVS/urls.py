@@ -27,5 +27,8 @@ DRO.register('ProductVS',ProductVS,basename=ProductVS)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/',include(DRO.urls)),
+    path('productFBV/',productFBV,name='productFBV'),
+    path('productFBV/<int:pk>/',productFBV,name='productFBV'),
+    
     
 ]

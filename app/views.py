@@ -109,6 +109,51 @@ def productFBV(request,pk=None):
       
 #4)Class Based View  
 class ProductCBV(APIView):
+    def get(self,request,pk=None):
+        if not pk:
+            LPO=Product.objects.all()
+            JPO=ProductSerializer(LPO,many=True)
+            return Response(JPO.data)
+        else:
+            PPO=Product.objects.filter(pk=pk)
+            if PPO:
+                PO=PPO[0]   
+                JPO=ProductSerializer(PO)
+                return Response(JPO.data)
+            else:
+                return Response({"message":"Not Found"})
+    def post(self,request,pk=None):
+        PSF=ProductSerializer(data=request.data)
+        if PSF.is_valid():
+            PSF.save()
+            return Response({"message":"Successfully post"})
+        return Response({"message":"not post"})
+    def patch(self,request,pk):
+        if not pk:
+            return Response({"message": "pk required"})
+        PO=Product.objects.get(pk=pk)
+        UPO=ProductSerializer(PO,data=request.data,partial=True)
+        if UPO.is_valid():
+            UPO.save()
+            return Response({"message":"Successfully patch "})
+        return Response({"message":"not patch"})
+    def put(self,request,pk):
+        if not pk:
+            return Response({"message": "pk required"})
+        PO=Product.objects.get(pk=pk)
+        UPO=ProductSerializer(PO,data=request.data)
+        if UPO.is_valid():
+            UPO.save()
+            return Response({"message":"Successfully UPDATE"})
+        return Response({"message":"not UPDATE"})
+    def delete(self,request,pk):
+        if not pk:
+            return Response({"message": "pk required"})
+        PO=Product.objects.get(pk=pk)
+        PO.delete()
+        return Response({"Message":"Deleted successfully"})
+    
+        
     
         
 

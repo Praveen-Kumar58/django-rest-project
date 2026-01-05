@@ -26,9 +26,10 @@ DRO.register('ProductVS',ProductVS,basename=ProductVS)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('app/',include(DRO.urls)),
-    path('productFBV/',productFBV,name='productFBV'),
-    path('productFBV/<int:pk>/',productFBV,name='productFBV'),
-    
+    path('app/',include(DRO.urls)), #for viewsets
+    path('productFBV/',productFBV,name='productFBV'), #for FBV without pk
+    path('productFBV/<int:pk>/',productFBV,name='productFBV'), #for FBV with pk
+    path('ProductCBV/',ProductCBV.as_view(),name='ProductCBV'),#for CBV without pk
+    path('ProductCBV/<int:pk>/',ProductCBV.as_view(),name='ProductCBV'),#for FBV with pk
     
 ]
